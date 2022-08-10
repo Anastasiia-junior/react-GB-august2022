@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Message } from './components/Message/Message';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     if (messageList.length && messageList[messageList.length - 1].author === 'user') {
 
       timerId = setTimeout(() => {
-        setMessageList([...messageList, { text: 'answer from bot', author: 'bot',  date: new Date()}])
+        setMessageList([...messageList, { text: 'answer from bot', author: 'bot', date: new Date() }])
       }, 2000);
     };
 
@@ -24,9 +25,9 @@ function App() {
   }, [messageList]);
 
   const clickHandler = () => {
-    if(value) {
+    if (value) {
       setMessageList([...messageList, { text: value, author: 'user', date: new Date() }]);
-    setValue('');
+      setValue('');
     }
   }
 
@@ -34,25 +35,26 @@ function App() {
     setValue(event.target.value);
   }
 
-  const handlePressInput = ({code}) =>{
-    if (code === 'Enter'){
+  const handlePressInput = ({ code }) => {
+    if (code === 'Enter') {
       clickHandler();
     }
   }
 
   return (
     <React.Fragment >
-      {messageList.map((message, index) => <div className='message' key={index}>
-        <span className='author'>{message.author}:</span>{message.text}
-        <p>21:08</p>
-        </div>)}
+      <div>
+        {messageList.map((message, index) => <Message message={message} key={index} />)}
+      </div>
 
-      <textarea type='text' 
-                value={value} 
-                onChange={changeHandler} 
-                onKeyPress={handlePressInput}
-                className='textarea'></textarea>
-      <button type='button' onClick={clickHandler} className='send-message' >отправить</button>
+      <div>
+        <textarea type='text'
+          value={value}
+          onChange={changeHandler}
+          onKeyPress={handlePressInput}
+          className='textarea'></textarea>
+        <button type='button' onClick={clickHandler} className='send-message' >отправить</button>
+      </div>
     </React.Fragment>
   );
 }
