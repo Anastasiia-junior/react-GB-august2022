@@ -53,6 +53,7 @@ export function MessageList() {
                 behavior: "smooth",});
         }
     }, [messageList])
+    
     return (
         <React.Fragment >
             <div ref={ref}>
@@ -61,6 +62,7 @@ export function MessageList() {
 
             <div>
                 <MyInput
+                    autoFocus={true}
                     fullWidth={true}
                     placeholder='Введите сообщение'
                     type='text'
