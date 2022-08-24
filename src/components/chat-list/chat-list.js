@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { List, ListItem, Avatar, ListItemText, ListItemAvatar } from '@mui/material';
-//import { Chat } from "./chat/chat";
+import { useCallback, useState } from "react";
+import { List} from '@mui/material';
+import { Chat } from "./chat/chat";
 
 export function ChatList() {
 
@@ -24,17 +24,21 @@ export function ChatList() {
 
     ]);
 
+    const [selectedChat, setSelectedChat] = useState([0].id);
+
+    const handleListItemClick = useCallback((chat) => {
+        setSelectedChat(chat)
+    }, [])
 
     return (
-        <List>
+        <List component='nav'>
             {chatList.map((chat) => {
 
-                return (<ListItem key={chat.id}>
-                    <ListItemAvatar>
-                        <Avatar alt={chat.name} src="/static/images/avatar/2.jpg"></Avatar>
-                    </ListItemAvatar>
-                    <ListItemText>{chat.name}</ListItemText>
-                </ListItem>)
+                return (<Chat 
+                    key={chat.id} 
+                    chat={chat}
+                    selected={chat.id === selectedChat}
+                    handleListItemClick={handleListItemClick}/>)
             })}
 
         </List>
