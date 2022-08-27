@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
-import { Layout, MessageList, Header, ChatList } from './components';
+import { Header } from './components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ChatPage, ProfilePage, HomePage } from './pages';
 
 
 const theme = createTheme({
@@ -18,11 +20,18 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Layout messages={<MessageList/>} header={<Header/>} chats={<ChatList/>}/>
+      <BrowserRouter>
+      <Header/>
+        <Routes>
+          <Route path='/home' element={<HomePage/>}/>
+          <Route path='/profile' element={<ProfilePage/>}/>
+          <Route path='/chatPage/*' element={<ChatPage/>}/>
+          <Route path='*' element={<div>404</div>}/>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );
-
 
 
 // If you want to start measuring performance in your app, pass a function

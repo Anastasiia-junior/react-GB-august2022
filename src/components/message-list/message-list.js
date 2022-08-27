@@ -3,11 +3,22 @@ import { InputAdornment } from '@mui/material';
 import React, { useEffect, useState, useRef } from 'react';
 import { Message } from './Message';
 import { MyInput, SendIcon } from './styles';
+import { useParams, Routes, Route } from 'react-router-dom';
 
 
 export function MessageList() {
 
-    const [messageList, setMessageList] = useState([]);
+    const [messageList, setMessageList] = useState({
+        1: [{ text: 'Hello', author: 'User' }, { text: 'Hello', author: 'bot' }],
+        2: [{ text: 'Hello', author: 'bot' }],
+        3: [],
+        4: []
+    });
+
+    const{ userId } = useParams();
+    
+    const [messages, setMessages] = useState([messageList[userId] ?? []]);
+console.log(messages);
 
     const [value, setValue] = useState('');
 
@@ -15,21 +26,21 @@ export function MessageList() {
 
         let timerId = null;
 
-        if (messageList.length && messageList[messageList.length - 1].author === 'user') {
+        if (messages.length && messages[messages.length - 1].author === 'user') {
 
             timerId = setTimeout(() => {
-                setMessageList([...messageList, { text: 'answer from bot', author: 'bot', date: new Date() }])
+                setMessages([...messages, { text: 'answer from bot', author: 'bot', date: new Date() }])
             }, 2000);
         };
 
         return () => {
             clearInterval(timerId)
         };
-    }, [messageList]);
+    }, [messages]);
 
     const clickHandler = () => {
         if (value) {
-            setMessageList([...messageList, { text: value, author: 'user', date: new Date() }]);
+            setMessages([...messages, { text: value, author: 'user', date: new Date() }]);
             setValue('');
         }
     }
@@ -44,21 +55,29 @@ export function MessageList() {
         }
     }
 
-    const ref = useRef(); 
+    const ref = useRef();
     useEffect(() => {
         if (ref.current) {
             ref.current.scrollTo({
                 top: ref.current.scrollHeight,
                 left: 0,
-                behavior: "smooth",});
+                behavior: "smooth",
+            });
         }
-    }, [messageList])
-    
+    }, [messages])
+
     return (
         <React.Fragment >
-            <div ref={ref}>
-                {messageList.map((message, index) => <Message message={message} key={index} />)}
+            <div ref={ref}>{messages.map((message, index) => <Message message={message} key={index} />)}
             </div>
+            
+            {/* <div ref={ref}>
+            <Routes>
+                <Route path='/profile/:userId' element={<div ref={ref}>
+                {messages.map((message, index) => <Message message={message} key={index} />)}
+            </div>}></Route>
+            </Routes>
+            </div> */}
 
             <div>
                 <MyInput
@@ -69,9 +88,10 @@ export function MessageList() {
                     value={value}
                     onChange={changeHandler}
                     onKeyPress={handlePressInput}
-                    endAdornment={<InputAdornment position='end'>
-                        {value && <SendIcon onClick={clickHandler} />}
-                    </InputAdornment>}
+                    endAdornment={
+                        <InputAdornment position='end'>
+                            {value && <SendIcon onClick={clickHandler} />}
+                        </InputAdornment>}
                 />
 
             </div>

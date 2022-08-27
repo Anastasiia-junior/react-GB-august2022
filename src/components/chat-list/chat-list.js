@@ -1,10 +1,13 @@
 import { useCallback, useState } from "react";
-import { List} from '@mui/material';
+import { List } from '@mui/material';
 import { Chat } from "./chat/chat";
+//import { NavLink, Routes, Route } from 'react-router-dom';
+
+
 
 export function ChatList() {
 
-    const [chatList, setChatList] = useState([
+    const [chatList] = useState([
         {
             id: 1,
             name: 'Ivan'
@@ -31,16 +34,34 @@ export function ChatList() {
     }, [])
 
     return (
-        <List component='nav'>
-            {chatList.map((chat) => {
+        <>
+            <List component='nav'>
+                {chatList.map((chat) => {
 
-                return (<Chat 
-                    key={chat.id} 
-                    chat={chat}
-                    selected={chat.id === selectedChat}
-                    handleListItemClick={handleListItemClick}/>)
-            })}
+                    return (
 
-        </List>
+                        <Chat
+                                key={chat.id}
+                                chat={chat}
+                                selected={chat.id === selectedChat}
+                                handleListItemClick={handleListItemClick} 
+                                />
+                        // <NavLink to={chat.id} key={chat.id}>
+                        //     <Chat
+                        //         key={chat.id}
+                        //         chat={chat}
+                        //         selected={chat.id === selectedChat}
+                        //         handleListItemClick={handleListItemClick} 
+                        //         />
+                        // </NavLink>
+                        
+                    )
+                })}
+
+            </List>
+
+
+        </>
+
     )
 }
