@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 
 export const Chat = memo((props) => {
 
+    
+
     return (
         <NavLink to={`${props.chat.id}`} key={props.chat.id}>
         <ListItemButton
