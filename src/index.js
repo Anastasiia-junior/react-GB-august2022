@@ -6,6 +6,8 @@ import { createTheme } from '@mui/material';
 import { Header } from './components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ChatPage, ProfilePage, HomePage } from './pages';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 
 const theme = createTheme({
@@ -19,18 +21,20 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-      <Header/>
-        <Routes>
-          <Route path='/home' element={<HomePage/>}/>
-          <Route path='/profile' element={<ProfilePage/>}/>
-          <Route path='/chatPage/*' element={<ChatPage/>}/>
-          <Route path='*' element={<div>404</div>}/>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
-  </React.StrictMode>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path='/home' element={<HomePage />} />
+            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/chatPage/*' element={<ChatPage />} />
+            <Route path='*' element={<div>404</div>} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode >
 );
 
 

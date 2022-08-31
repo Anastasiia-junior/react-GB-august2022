@@ -17,8 +17,9 @@ export function MessageList() {
 
     const{ userId } = useParams();
     
-    const [messages, setMessages] = useState([messageList[userId] ?? []]);
-console.log(messages);
+    //const [messages, setMessages] = useState([messageList[userId] ?? []]);
+    const messages = messageList[userId] ?? [];
+    //console.log(messageList[userId]);
 
     const [value, setValue] = useState('');
 
@@ -29,7 +30,8 @@ console.log(messages);
         if (messages.length && messages[messages.length - 1].author === 'user') {
 
             timerId = setTimeout(() => {
-                setMessages([...messages, { text: 'answer from bot', author: 'bot', date: new Date() }])
+                //setMessages([...messages, { text: 'answer from bot', author: 'bot', date: new Date() }])
+               messages =  [...messages, { text: 'answer from bot', author: 'bot', date: new Date() }]
             }, 2000);
         };
 
@@ -40,7 +42,8 @@ console.log(messages);
 
     const clickHandler = () => {
         if (value) {
-            setMessages([...messages, { text: value, author: 'user', date: new Date() }]);
+           // setMessages([...messages, { text: value, author: 'user', date: new Date() }]);
+           messages =  [...messages, { text: 'answer from bot', author: 'bot', date: new Date() }]
             setValue('');
         }
     }
@@ -70,14 +73,6 @@ console.log(messages);
         <React.Fragment >
             <div ref={ref}>{messages.map((message, index) => <Message message={message} key={index} />)}
             </div>
-            
-            {/* <div ref={ref}>
-            <Routes>
-                <Route path='/profile/:userId' element={<div ref={ref}>
-                {messages.map((message, index) => <Message message={message} key={index} />)}
-            </div>}></Route>
-            </Routes>
-            </div> */}
 
             <div>
                 <MyInput
