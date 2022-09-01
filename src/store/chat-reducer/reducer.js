@@ -30,11 +30,12 @@ export const chatReducer = (state = initialState, action) => {
         case ADD_CHAT: 
             return {
                 ...state, 
-
+                //реализую после добавления редьюсеров других страниц
             }
         case DELETE_CHAT:
             return {
                 ...state,
+                //реализую после добавления редьюсеров других страниц
             }
         case SELECTED_CHAT:
             return {

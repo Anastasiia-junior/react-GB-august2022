@@ -6,7 +6,7 @@ export const Message = ({message}) => {
         <div className={classNames(styles.message, 
         {[styles.currentMessage]: message.author === 'user'})}>
             <h3>{message.author}</h3>
-            <p>{message.text}</p>
+            <p>{message.message}</p>
             <p>21:43</p>
         </div>
     )
