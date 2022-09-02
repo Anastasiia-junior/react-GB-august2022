@@ -72,11 +72,13 @@ export function MessageList() {
                 behavior: "smooth",
             });
         }
-    }, [messages])
+    }, [messages]);
+
+    
 
     return (
         <React.Fragment >
-            <div ref={ref}>{messages.map((message, index) => <Message message={message} key={index} />)}
+            <div ref={ref}>{messages.map((message, index) => <Message userId={userId} message={message} key={index} />)}
             </div>
 
             <div>

@@ -7,10 +7,10 @@ export const sendMessage = (message, userId) => {
   };
 };
 
-export const deleteMessage = (idMessage) => {
+export const deleteMessage = (messageId, userId) => {
   return {
     type: DELETE_MESSAGE,
-    payload: idMessage
+    payload: {messageId, userId}
   }
 }
 

@@ -29,8 +29,14 @@ export const dialogsReducer = (state = initialState, action) => {
         case DELETE_MESSAGE:
             return {
                 ...state,
-                //реализую после добавления редьюсеров других страниц
+                messageList: {
+                    ...state.messageList,
+                    [action.payload.userId] : state.messageList[action.payload.userId].filter(
+                        (message) => message.id !== action.payload.messageId 
+                    )
             }
+                }
+                
        
         default: 
             return state;
