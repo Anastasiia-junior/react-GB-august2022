@@ -1,28 +1,21 @@
 
 import { InputAdornment } from '@mui/material';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { Message } from './Message';
 import { MyInput, SendIcon } from './styles';
 import { useParams } from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
-import { sendMessage, deleteMessage } from '../../store/dialogs-reducer/action'
+import { useDispatch, useSelector} from 'react-redux';
+import { sendMessage, messageSelector } from '../../store/dialogs-reducer';
 
 
 export function MessageList() {
 
-    // const [messageList, setMessageList] = useState({
-    //     1: [{ text: 'Hello', author: 'User' }, { text: 'Hello', author: 'bot' }],
-    //     2: [{ text: 'Hello', author: 'bot' }],
-    //     3: [],
-    //     4: []
-    // });
-
     const{ userId } = useParams();
 
 
-    const messageList = useSelector(state => state.dialogs.messageList);
-    
-    const messages = messageList[userId] ?? [];
+    const selector = useMemo( () => messageSelector(userId), [userId]);
+
+    const messages = useSelector(selector);
     
     const [value, setValue] = useState('');
 

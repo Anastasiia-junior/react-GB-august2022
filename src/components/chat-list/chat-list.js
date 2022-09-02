@@ -2,24 +2,22 @@ import { useCallback } from "react";
 import { List } from '@mui/material';
 import { Chat } from "./chat/chat";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedChat } from '../../store/chat-reducer';
+import { setSelectedChat, chatSelector, selectedChatSelector } from '../../store/chat-reducer';
 
 
 
 
 export function ChatList() {
 
-    const chatList = useSelector(state => state.chat.chatList);
-    const selectedChat = useSelector(state => state.chat.selectedChat);
+    const chatList = useSelector(chatSelector);
+    const selectedChat = useSelector(selectedChatSelector);
+
     const dispatch = useDispatch();
 
 
     const handleListItemClick = useCallback((chatId) => {
         dispatch(setSelectedChat(chatId));
-    }, [])
-
-
-
+    }, [dispatch]);
 
     return (
         <>
