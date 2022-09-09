@@ -5,7 +5,7 @@ import { Message } from './Message';
 import { MyInput, SendIcon } from './styles';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
-import { sendMessage, messageSelector } from '../../store/dialogs-reducer';
+import { sendMessageWithBot, messageSelector } from '../../store/dialogs-reducer';
 
 
 export function MessageList() {
@@ -23,7 +23,7 @@ export function MessageList() {
 
     const clickHandler = useCallback((message, author = 'user') => {
         if (message) {
-            dispatch(sendMessage({message, author}, userId ))
+            dispatch(sendMessageWithBot({message, author}, userId ))
         }
         setValue('');
     }, [userId, dispatch]);
