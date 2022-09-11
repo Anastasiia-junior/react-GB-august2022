@@ -7,7 +7,8 @@ import { Header } from './components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ChatPage, ProfilePage, HomePage } from './pages';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { store, persistor } from './store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 const theme = createTheme({
@@ -22,6 +23,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      < PersistGate loading={null} persistor={persistor}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Header />
@@ -33,6 +35,7 @@ root.render(
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode >
 );
