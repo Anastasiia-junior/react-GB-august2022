@@ -5,7 +5,8 @@ export function Header () {
 let menu = [
     {title: 'Home Page', to: '/'},
     {title: 'Chats', to: '/chatPage'},
-    {title: 'Profile Page', to: '/profile'}
+    {title: 'Profile Page', to: '/profile'},
+    {title: 'Gists Page', to: '/gists'}
 ]
 
     return (

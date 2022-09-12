@@ -5,7 +5,7 @@ import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import { Header } from './components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ChatPage, ProfilePage, HomePage } from './pages';
+import { ChatPage, ProfilePage, HomePage, GistsPage } from './pages';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
@@ -31,6 +31,7 @@ root.render(
             <Route path='/home' element={<HomePage />} />
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/chatPage/*' element={<ChatPage />} />
+            <Route path='/gists' element={<GistsPage />} />
             <Route path='*' element={<div>404</div>} />
           </Routes>
         </BrowserRouter>
