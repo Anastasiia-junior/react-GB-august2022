@@ -1,25 +1,23 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import {getGists} from '../store/gists-reducer';
+import {getGists, getUserGist} from '../store/gists-reducer';
 
 export const GistsPage = () => {
 
     const pagination = [1,2,3,4,5,6,7,8,9];
 
-    const {gists, pending, error} = useSelector((state) => {
-        console.log(state);
-        return state.gists;
-    });
+    const {gistsArray, pending, error, gistsByName, searchPending, searchError} = useSelector((state) => state.gists);
+    
 
     const dispatch = useDispatch();
 
     useEffect( 
         () => {
-            if(gists.length === 0) {
+            if(gistsArray.length === 0) {
                 dispatch(getGists());
             }
         },
-        [dispatch, gists]
+        [dispatch, gistsArray]
     )
 
     if (error) {
@@ -30,15 +28,24 @@ export const GistsPage = () => {
         <div>
             <div>
                 {pagination.map((page, index) => {
-                    return (<button key={index} onclick={() => {dispatch(getGists(page))}}>{page}</button>)
+                    return (<button key={index} onClick={() => {dispatch(getGists(page))}}>{page}</button>)
                 })}
             </div>
             <h1>GistsPage</h1>
-            {pending ? <h1> pending...</h1> : gists.map((gist, index) => {
+            {pending ? <h1> pending...</h1> : gistsArray.map((gist, index) => {
                 return (
                     <p key={index}>{gist.url}</p>
                 )
             })}
+            <hr></hr>
+            <div>
+            <button onClick={() => dispatch(getUserGist())}>select 'bogdanq' user</button>
+            {searchPending ? <h3>search pending...</h3> : gistsByName.map((gist, index) => {
+                return (
+                    <p key={index}>{gist.url}</p>
+                )
+            })}
+            </div>
         </div>
         )
 }

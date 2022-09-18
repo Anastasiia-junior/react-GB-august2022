@@ -1,4 +1,4 @@
-import { getGistsStart, getGistsSuccess, getGistsError } from "./action"
+import { getGistsStart, getGistsSuccess, getGistsError, errorSearchGistsByName, successSearchGistsByName, startSearchGistsByName } from "./action"
 
 export const getGists = (page) => async (dispatch, _, api) => {
     try {
@@ -9,7 +9,18 @@ export const getGists = (page) => async (dispatch, _, api) => {
         dispatch(getGistsSuccess(data));
 
     } catch (error){
-        dispatch(getGistsError());
+        dispatch(getGistsError(error));
     }
 
+}
+
+export const getUserGist = (name) => async (dispatch, _, api) => {
+
+    try {
+        dispatch(startSearchGistsByName());
+        const {data} = await api.searchGistsByNameApi(name);
+        dispatch(successSearchGistsByName(data));
+    } catch (error) {
+        dispatch(errorSearchGistsByName(error))
+    }
 }

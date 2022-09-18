@@ -23,7 +23,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      < PersistGate loading={null} persistor={persistor}>
+      
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Header />
@@ -36,7 +36,7 @@ root.render(
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
-      </PersistGate>
+      
     </Provider>
   </React.StrictMode >
 );
